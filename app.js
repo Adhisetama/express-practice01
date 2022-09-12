@@ -1,6 +1,23 @@
 const express = require('express')
 const app = express()
 
+
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const flash = require('connect-flash')
+
+// kondifurasi flash (gtw ini ngapain)
+app.use(cookieParser('secret'))
+app.use(
+    session({
+        cookie: { maxAge: 6000 },
+        secret: 'secret',
+        resave: true,
+        saveUninitialized: true
+    })
+)
+app.use(flash())
+
 const port = 3000
 
 app.set('view engine', 'ejs') // ini cara untuk menggunakan EJS, (ditaruh di folder views)
@@ -101,8 +118,30 @@ app.listen(port, () => {
 //     country: "Singapore"
 // })
 
-// test.save() // save ke test.contact
+// test.save()
+// .then(contact => console.log('contact')) // <- tuk cek keberhasilan (pke promise)
+
 
 // ^^ SEMUANYA DI REQUIRE DARI TEMPAT LAEN
 require('./utils/db')
 const Contact = require('./model/contact')
+
+// // testing
+// const test = new Contact({
+//     name: 'Irsyad Sukma',
+//     phone: "081222222222",
+//     country: "Singapore"
+// })
+
+// test.save()
+// .then(contact => console.log(contact)) // <- tuk cek keberhasilan (pke promise)
+
+
+
+
+// SENDING DATA FROM DATABASE TO PAGE
+
+// app.get('/contacts', async (req, res) => {
+//     const contacts = await Contact.find()
+    
+// })
