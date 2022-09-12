@@ -33,15 +33,37 @@ app.listen(port, () => {
 
 // sum' note: ada npm bernama "validate" yg sangat usefullll
 
-// untuk mongodb, lihat dokumentasi disini https://www.mongodb.com/docs/v6.0/reference/method/js-collection/
+
 
 // how to mongodb
 
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://<username>:<password>@testmongo.rbvgcyd.mongodb.net/?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
+// buat akun atlas trs buat username & password
+// trs klik connect ke app node.js n copy the code
+
+// how to use: (doc in https://www.npmjs.com/package/mongodb)
+
+// 1. install MongoDB "npm install mongodb" and require
+    const { MongoClient, ServerApiVersion } = require('mongodb');
+    const uri = "mongodb+srv://admin:admin@testmongo.rbvgcyd.mongodb.net/?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, {
+        useNewUrlParser: true, useUnifiedTopology: true,
+        serverApi: ServerApiVersion.v1
+    });
+
+// 2. define url and client
+    const url = 'mongodb://127.0.0.1:27017'
+    const dbName = 'TestMongo'
+
+// 3. make da client
+client.connect(error => {
+    if(error) {
+        return console.log("connection failed")
+    }
+    console.log("DB connected")
+    const db = client.db(dbName); // db merepresentasikan database
+
+  // ============ OPERATION WITH ZE DB ============ 
+  // just see https://www.mongodb.com/docs/v6.0/reference/method/js-collection/
+
+  //client.close(); // mengakhiri koneksi dgn db
+});
