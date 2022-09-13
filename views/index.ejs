@@ -8,13 +8,28 @@
     <title>EJS</title>
 </head>
 <body>
-    <h2>Hello World</h2>
-    <p>Cao Ni MAAA</p>
-    <%= passedVariable %> 
-    <ul>
-        <% for( let index = 0; index < passedName.length; index++ ) { %>
-        <li> <%= passedName[index] %>  </li>
-        <% } %>
-    </ul>
+    <h2>Daftar Kontak</h2>
+    <% if (contact.length > 0) { %>
+        <table style="border-spacing: 10px">
+            <% for( let i = 0; i < contact.length; i++ ) { %>
+            
+            <tr>
+                <td><%= i+1 %></td>
+                <td>Nama: <%= contact[i].name %></td>
+                <td>No HP: <%= contact[i].phone %></td>
+                <td>Negara: <%= contact[i].country %></td>
+                <td>
+                    <a href="/edit/<%= contact[i]._id %>" class="edit">Edit</a>
+                    <a href="/delete/<%= contact[i]._id %>" class="delete"
+                        onclick="return confirm('hapus kontak?')">Delete</a>
+                </td>
+            </tr>  
+    
+            <% } %>
+        </table>
+    <% } else { %>
+        <p style="color: red">Data Masih Kosong</p>
+    <% } %> 
+    <a href="/add">Tambah Kontak</a>
 </body>
 </html>
