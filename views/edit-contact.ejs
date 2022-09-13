@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacts</title>
+    <title>Update Contact</title>
 </head>
 <body>
-    <h2>CONTACTS</h2>
-    <input type="button" value="Add Contact">
-    <ul>
-        <% for( let i = 0; i < contacts.length; i++ ) { %>
-            <li>
-                <p>Nama: <%= contacts[i].name %></p>
-                <p>NoHP: <%= contacts[i].phone %></p>
-                <p>Negara: <%= contacts[i].country %></p>
-                <input type="button" value="Edit">
-                <input type="button" value="Delete">
-                <hr>
-            </li>
-        <% } %>
-    </ul>
+    <h2>Ubah Kontak</h2>
+    <form action="/edit" method="post">
+        <label for="name">nama: </label>
+        <input type="text" name="name" id="name" required value="<%= contact.name %>">
+        <br>
+        <label for="phone">nomor: </label>
+        <input type="text" name="phone" id="phone" required value="<%= contact.phone %>">
+        <br>
+        <label for="country">negara: </label>
+        <input type="text" name="country" id="country" required value="<%= contact.country %>">
+        <br>
+        <input type="hidden" name="_id" value="<%= contact._id %>">
+        <input type="submit" value="Ubah Kontak" href="/edit">
+    </form>
 </body>
 </html>

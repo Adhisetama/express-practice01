@@ -9,6 +9,7 @@
 </head>
 <body>
     <h2>Daftar Kontak</h2>
+    <hr>
     <% if (contact.length > 0) { %>
         <table style="border-spacing: 10px">
             <% for( let i = 0; i < contact.length; i++ ) { %>
@@ -30,6 +31,7 @@
     <% } else { %>
         <p style="color: red">Data Masih Kosong</p>
     <% } %> 
+    <hr>
     <a href="/add">Tambah Kontak</a>
 </body>
 </html>

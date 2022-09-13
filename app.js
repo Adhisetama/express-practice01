@@ -25,8 +25,7 @@ app.get('/add', async (req, res) => {
     res.render('add-contact')
 })
 app.post('/add', async (req, res) => {
-    console.log(req.body)
-    Contact.insertMany(req.body, (err, res) => {})
+    await Contact.insertMany(req.body, (err, res) => {})
     res.redirect('/')
 })
 
@@ -37,7 +36,6 @@ app.get('/delete/:id', async (req, res) => {
     if (contact) {
         await Contact.deleteOne({_id: contact._id}) // hapus dari database
         res.redirect('/')
-        console.log(contact)
     } else {
         res.status(404)
         res.send('<h1>Error 404: Not Found</h1>')
@@ -47,7 +45,31 @@ app.get('/delete/:id', async (req, res) => {
 // edit contact page
 app.get('/edit/:id', async (req, res) => {
     const contact = await Contact.findOne({_id: ObjectId(req.params.id)})
-    
+    if (contact) {
+        res.render('edit-contact', { contact })
+    } else {
+        res.status(404)
+        res.send('<h1>Error 404: Not Found</h1>')
+    }
+})
+app.post('/edit', async (req, res) => {
+    const contact = await Contact.findOne({_id: ObjectId(req.body._id)})
+    if (contact) {
+        await Contact.updateOne(
+            {_id: ObjectId(req.body._id)},
+            {
+                $set: {
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    country: req.body.country
+                }
+            }
+        )
+        res.redirect('/')
+    } else {
+        res.status(404)
+        res.send('<h1>Error 404: Not Found</h1>')
+    }
 })
 
 app.listen(port, () => {
